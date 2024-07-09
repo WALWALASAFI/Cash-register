@@ -40,7 +40,7 @@ const checkCashRegister = () => {
   let changeDue = Number(cash.value) - price;
   const reversedCid = [...cid].reverse();
   const denominations = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
-  let result = { status: 'OPEN', change: [] };
+  const result = { status: 'OPEN', change: [] };
   const totalCID = parseFloat(
     cid
       .map(total => total[1])
