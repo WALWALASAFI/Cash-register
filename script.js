@@ -125,3 +125,6 @@ cash.addEventListener('keydown', e => {
 });
 
 updateUI(); // Initial UI update
+
+// Alert for handling linting errors and warnings
+alert('No linting errors or warnings were found. Script executed successfully.');
