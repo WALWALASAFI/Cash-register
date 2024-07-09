@@ -45,7 +45,7 @@ const checkCashRegister = () => {
     cid
       .map(total => total[1])
       .reduce((prev, curr) => prev + curr)
-      .toFixed(2),
+      .toFixed(2)
   );
 
   if (totalCID < changeDue) {
@@ -87,7 +87,7 @@ const checkResults = () => {
   checkCashRegister();
 };
 
-const updateUI = change => {
+const updateUI = (change) => {
   const currencyNameMap = {
     PENNY: 'Pennies',
     NICKEL: 'Nickels',
@@ -125,6 +125,3 @@ cash.addEventListener('keydown', e => {
 });
 
 updateUI(); // Initial UI update
-
-// Alert for handling linting errors and warnings
-alert('No linting errors or warnings were found. Script executed successfully.');
