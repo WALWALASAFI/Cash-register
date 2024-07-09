@@ -66,20 +66,8 @@ label {
 }
 
 #price {
-  font-size: 1.5rem;
+  font-size: 1.rem;
   text-align: center;
-}
-
-.connector {
-  margin-left: -20px;
-  background-color: #99c9ff;
-  height: 30px;
-  width: 40px;
-}
-
-.btns-container {
-  width: 75%;
-
 }
 
 .btn {
