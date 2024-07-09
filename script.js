@@ -57,7 +57,7 @@ const checkCashRegister = () => {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i <= reversedCid.length; i++) {
+  for (let i = 0; i < reversedCid.length; i++) {
     if (changeDue >= denominations[i] && changeDue > 0) {
       let count = 0;
       let total = reversedCid[i][1];
@@ -103,7 +103,9 @@ const updateUI = change => {
   if (change) {
     change.forEach(changeArr => {
       const targetArr = cid.find(cidArr => cidArr[0] === changeArr[0]);
-      targetArr[1] = parseFloat((targetArr[1] - changeArr[1]).toFixed(2));
+      if (targetArr) {
+        targetArr[1] = parseFloat((targetArr[1] - changeArr[1]).toFixed(2));
+      }
     });
   }
 
