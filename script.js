@@ -8,7 +8,7 @@ const cid = [
   ['FIVE', 55],
   ['TEN', 20],
   ['TWENTY', 60],
-  ['ONE HUNDRED', 100]
+  ['ONE HUNDRED', 100],
 ];
 
 const displayChangeDue = document.getElementById('change-due');
@@ -45,7 +45,7 @@ const checkCashRegister = () => {
     cid
       .map(total => total[1])
       .reduce((prev, curr) => prev + curr)
-      .toFixed(2)
+      .toFixed(2),
   );
 
   if (totalCID < changeDue) {
@@ -97,7 +97,7 @@ const updateUI = change => {
     FIVE: 'Fives',
     TEN: 'Tens',
     TWENTY: 'Twenties',
-    'ONE HUNDRED': 'Hundreds'
+    'ONE HUNDRED': 'Hundreds',
   };
   // Update cid if change is passed in
   if (change) {
