@@ -19,7 +19,7 @@ const cashDrawerDisplay = document.getElementById('cash-drawer-display');
 
 const formatResults = (status, change) => {
   displayChangeDue.innerHTML = `<p>Status: ${status}</p>`;
-  change.forEach(money => {
+  change.forEach((money) => {
     displayChangeDue.innerHTML += `<p>${money[0]}: $${money[1]}</p>`;
   });
 };
@@ -43,7 +43,7 @@ const checkCashRegister = () => {
   const result = { status: 'OPEN', change: [] };
   const totalCID = parseFloat(
     cid
-      .map(total => total[1])
+      .map((total) => total[1])
       .reduce((prev, curr) => prev + curr)
       .toFixed(2)
   );
@@ -77,7 +77,7 @@ const checkCashRegister = () => {
   }
 
   formatResults(result.status, result.change);
-  updateUI(result.change); // Moved this line after updateUI definition
+  updateUI(result.change); // updateUI moved after its definition
 };
 
 const checkResults = () => {
@@ -101,8 +101,8 @@ const updateUI = (change) => {
   };
   // Update cid if change is passed in
   if (change) {
-    change.forEach(changeArr => {
-      const targetArr = cid.find(cidArr => cidArr[0] === changeArr[0]);
+    change.forEach((changeArr) => {
+      const targetArr = cid.find((cidArr) => cidArr[0] === changeArr[0]);
       if (targetArr) {
         targetArr[1] = parseFloat((targetArr[1] - changeArr[1]).toFixed(2));
       }
@@ -112,13 +112,13 @@ const updateUI = (change) => {
   cash.value = '';
   priceScreen.textContent = `Total: $${price}`;
   cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>
-    ${cid.map(money => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`).join('')}
+    ${cid.map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`).join('')}
   `;
 };
 
 purchaseBtn.addEventListener('click', checkResults);
 
-cash.addEventListener('keydown', e => {
+cash.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     checkResults();
   }
