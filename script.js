@@ -77,7 +77,7 @@ const checkCashRegister = () => {
   }
 
   formatResults(result.status, result.change);
-  updateUI(result.change);
+  updateUI(result.change); // Moved this line after updateUI definition
 };
 
 const checkResults = () => {
