@@ -87,7 +87,7 @@ const checkResults = () => {
   checkCashRegister();
 };
 
-// Moved updateUI function declaration above its usage
+// updateUI function definition moved above its usage
 const updateUI = (change) => {
   const currencyNameMap = {
     PENNY: 'Pennies',
