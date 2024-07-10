@@ -26,7 +26,7 @@ const formatResults = (status, change) => {
 
 const checkCashRegister = () => {
   if (Number(cash.value) < price) {
-    alert('Customer does not have enough money to purchase the item');
+    displayChangeDue.innerHTML = '<p>Customer does not have enough money to purchase the item</p>';
     cash.value = '';
     return;
   }
@@ -87,6 +87,7 @@ const checkResults = () => {
   checkCashRegister();
 };
 
+// Moved updateUI function declaration above its usage
 const updateUI = (change) => {
   const currencyNameMap = {
     PENNY: 'Pennies',
