@@ -75,7 +75,7 @@ const checkCashRegister = () => {
     cid
       .map((total) => total[1])
       .reduce((prev, curr) => prev + curr)
-      .toFixed(2)
+      .toFixed(2);
   );
 
   if (totalCID < changeDue) {
@@ -87,14 +87,14 @@ const checkCashRegister = () => {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i < reversedCid.length; i++) {
+  for (let i = 0; i < reversedCid.length; i += 1) {
     if (changeDue >= denominations[i] && changeDue > 0) {
       let count = 0;
       let total = reversedCid[i][1];
       while (total > 0 && changeDue >= denominations[i]) {
         total -= denominations[i];
         changeDue = parseFloat((changeDue - denominations[i]).toFixed(2));
-        count++;
+        count += 1;
       }
       if (count > 0) {
         result.change.push([reversedCid[i][0], count * denominations[i]]);
