@@ -102,7 +102,7 @@ const checkCashRegister = () => {
     }
   }
   if (changeDue > 0) {
-    displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
+    displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT-FUNDS</p>';
     return;
   }
 
