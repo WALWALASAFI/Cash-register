@@ -20,11 +20,10 @@ const cashDrawerDisplay = document.getElementById('cash-drawer-display');
 const formatResults = (status, change) => {
   displayChangeDue.innerHTML = `<p>Status: ${status}</p>`;
   change.forEach((money) => {
-    displayChangeDue.innerHTML += `<p>${money[0]}: $${money[1]}</p>`;
+    displayChangeDue.innerHTML += `<p>${money[0]}: $${money[1].toFixed(2)}</p>`;
   });
 };
 
-// Define updateUI function before its usage
 const updateUI = (change) => {
   const currencyNameMap = {
     PENNY: 'Pennies',
@@ -37,7 +36,7 @@ const updateUI = (change) => {
     TWENTY: 'Twenties',
     'ONE HUNDRED': 'Hundreds',
   };
-  // Update cid if change is passed in
+
   if (change) {
     change.forEach((changeArr) => {
       const targetArr = cid.find((cidArr) => cidArr[0] === changeArr[0]);
@@ -48,9 +47,9 @@ const updateUI = (change) => {
   }
 
   cash.value = '';
-  priceScreen.textContent = `Total: $${price}`;
+  priceScreen.textContent = `Total: $${price.toFixed(2)}`;
   cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>
-    ${cid.map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`).join('')}
+    ${cid.map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1].toFixed(2)}</p>`).join('')}
   `;
 };
 
@@ -73,10 +72,10 @@ const checkCashRegister = () => {
   const result = { status: 'OPEN', change: [] };
   const totalCID = parseFloat(
     cid
-      .map((total) => total[1])
-      .reduce((prev, curr) => prev + curr)
-      .toFixed(2);
-  );
+        .map((total) => total[1])
+        .reduce((prev, curr) => prev + curr)
+        .toFixed(2)
+    );
 
   if (totalCID < changeDue) {
     displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
@@ -101,13 +100,14 @@ const checkCashRegister = () => {
       }
     }
   }
+  
   if (changeDue > 0) {
-    displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT-FUNDS</p>';
+    displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
     return;
   }
 
   formatResults(result.status, result.change);
-  updateUI(result.change); // updateUI used after its definition
+  updateUI(result.change);
 };
 
 const checkResults = () => {
