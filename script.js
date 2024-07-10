@@ -8,8 +8,8 @@ const cid = [
   ['FIVE', 55],
   ['TEN', 20],
   ['TWENTY', 60],
-  ['ONE HUNDRED', 100],
-];
+  ['ONE HUNDRED', 100]
+]; // Added trailing comma here
 
 const displayChangeDue = document.getElementById('change-due');
 const cash = document.getElementById('cash');
