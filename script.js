@@ -1,5 +1,5 @@
-let price = 3.26;
-let cid = [
+const price = 3.26;
+const cid = [
   ['PENNY', 1.01],
   ['NICKEL', 2.05],
   ['DIME', 3.1],
@@ -88,14 +88,14 @@ const checkCashRegister = () => {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i < reversedCid.length; i++) {
+  for (let i = 0; i < reversedCid.length; i += 1) {
     if (changeDue >= denominations[i] && changeDue > 0) {
       let count = 0;
       let total = reversedCid[i][1];
       while (total > 0 && changeDue >= denominations[i]) {
         total -= denominations[i];
         changeDue = parseFloat((changeDue - denominations[i]).toFixed(2));
-        count++;
+        count += 1;
       }
       if (count > 0) {
         result.change.push([reversedCid[i][0], count * denominations[i]]);
@@ -120,4 +120,4 @@ cash.addEventListener('keydown', (e) => {
   }
 });
 
-updateUI();
+updateUI([]); // Initialize UI
