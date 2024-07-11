@@ -1,5 +1,5 @@
-let price = 3.26;
-let cid = [
+const price = 3.26;
+const cid = [
   ['PENNY', 1.01],
   ['NICKEL', 2.05],
   ['DIME', 3.1],
@@ -22,6 +22,35 @@ const formatResults = (status, change) => {
   change.forEach(money => {
     displayChangeDue.innerHTML += `<p>${money[0]}: $${money[1]}</p>`;
   });
+};
+
+const updateUI = (change) => {
+  const currencyNameMap = {
+    PENNY: 'Pennies',
+    NICKEL: 'Nickels',
+    DIME: 'Dimes',
+    QUARTER: 'Quarters',
+    ONE: 'Ones',
+    FIVE: 'Fives',
+    TEN: 'Tens',
+    TWENTY: 'Twenties',
+    'ONE HUNDRED': 'Hundreds'
+  };
+
+  if (change) {
+    change.forEach(changeArr => {
+      const targetArr = cid.find(cidArr => cidArr[0] === changeArr[0]);
+      targetArr[1] = parseFloat((targetArr[1] - changeArr[1]).toFixed(2));
+    });
+  }
+
+  cash.value = '';
+  priceScreen.textContent = `Total: $${price}`;
+  cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>
+    ${cid
+      .map(money => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
+      .join('')}
+  `;
 };
 
 const checkCashRegister = () => {
@@ -79,35 +108,6 @@ const checkCashRegister = () => {
 
   formatResults(result.status, result.change);
   updateUI(result.change);
-};
-
-const updateUI = (change) => {
-  const currencyNameMap = {
-    PENNY: 'Pennies',
-    NICKEL: 'Nickels',
-    DIME: 'Dimes',
-    QUARTER: 'Quarters',
-    ONE: 'Ones',
-    FIVE: 'Fives',
-    TEN: 'Tens',
-    TWENTY: 'Twenties',
-    'ONE HUNDRED': 'Hundreds'
-  };
-
-  if (change) {
-    change.forEach(changeArr => {
-      const targetArr = cid.find(cidArr => cidArr[0] === changeArr[0]);
-      targetArr[1] = parseFloat((targetArr[1] - changeArr[1]).toFixed(2));
-    });
-  }
-
-  cash.value = '';
-  priceScreen.textContent = `Total: $${price}`;
-  cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>
-    ${cid
-      .map(money => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
-      .join('')}
-  `;
 };
 
 purchaseBtn.addEventListener('click', checkCashRegister);
