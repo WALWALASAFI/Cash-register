@@ -18,11 +18,10 @@ const priceScreen = document.getElementById('price-screen');
 const cashDrawerDisplay = document.getElementById('cash-drawer-display');
 
 const formatResults = (status, change) => {
-  displayChangeDue.innerHTML = <p>Status: ${status}</p>;
-  change.map(
-    money => (displayChangeDue.innerHTML += <p>${money[0]}: $${money[1]}</p>)
-  );
-  return;
+  displayChangeDue.innerHTML = `<p>Status: ${status}</p>`;
+  change.forEach(money => {
+    displayChangeDue.innerHTML += `<p>${money[0]}: $${money[1]}</p>`;
+  });
 };
 
 const checkCashRegister = () => {
@@ -33,8 +32,7 @@ const checkCashRegister = () => {
   }
 
   if (Number(cash.value) === price) {
-    displayChangeDue.innerHTML =
-      '<p>No change due - customer paid with exact cash</p>';
+    displayChangeDue.innerHTML = '<p>No change due - customer paid with exact cash</p>';
     cash.value = '';
     return;
   }
@@ -51,20 +49,21 @@ const checkCashRegister = () => {
   );
 
   if (totalCID < changeDue) {
-    return (displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>');
+    displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
+    return;
   }
 
   if (totalCID === changeDue) {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i < reversedCid.length; i++) {  // Fixed the loop condition
+  for (let i = 0; i < reversedCid.length; i++) {
     if (changeDue >= denominations[i] && changeDue > 0) {
       let count = 0;
       let total = reversedCid[i][1];
       while (total > 0 && changeDue >= denominations[i]) {
         total -= denominations[i];
-        changeDue = parseFloat((changeDue - denominations[i]).toFixed(2));  // Fixed assignment
+        changeDue = parseFloat((changeDue - denominations[i]).toFixed(2));
         count++;
       }
       if (count > 0) {
@@ -72,22 +71,17 @@ const checkCashRegister = () => {
       }
     }
   }
+  
   if (changeDue > 0) {
-    return (displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>');
+    displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
+    return;
   }
 
   formatResults(result.status, result.change);
   updateUI(result.change);
 };
 
-const checkResults = () => {
-  if (!cash.value) {
-    return;
-  }
-  checkCashRegister();
-};
-
-const updateUI = change => {
+const updateUI = (change) => {
   const currencyNameMap = {
     PENNY: 'Pennies',
     NICKEL: 'Nickels',
@@ -99,7 +93,7 @@ const updateUI = change => {
     TWENTY: 'Twenties',
     'ONE HUNDRED': 'Hundreds'
   };
-  
+
   if (change) {
     change.forEach(changeArr => {
       const targetArr = cid.find(cidArr => cidArr[0] === changeArr[0]);
@@ -108,19 +102,19 @@ const updateUI = change => {
   }
 
   cash.value = '';
-  priceScreen.textContent = Total: $${price};
+  priceScreen.textContent = `Total: $${price}`;
   cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>
     ${cid
-      .map(money => <p>${currencyNameMap[money[0]]}: $${money[1]}</p>)
-      .join('')}  
+      .map(money => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
+      .join('')}
   `;
 };
 
-purchaseBtn.addEventListener('click', checkResults);
+purchaseBtn.addEventListener('click', checkCashRegister);
 
 cash.addEventListener('keydown', e => {
   if (e.key === 'Enter') {
-    checkResults();
+    checkCashRegister();
   }
 });
 
