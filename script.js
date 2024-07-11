@@ -1,5 +1,5 @@
-const price = 3.26;
-const cid = [
+let price = 3.26;
+let cid = [
   ['PENNY', 1.01],
   ['NICKEL', 2.05],
   ['DIME', 3.1],
@@ -17,6 +17,13 @@ const purchaseBtn = document.getElementById('purchase-btn');
 const priceScreen = document.getElementById('price-screen');
 const cashDrawerDisplay = document.getElementById('cash-drawer-display');
 
+const formatResults = (status, change) => {
+  displayChangeDue.innerHTML = <p>Status: ${status}</p>;
+  change.forEach((money) => {
+    displayChangeDue.innerHTML += <p>${money[0]}: $${money[1]}</p>;
+  });
+};
+
 const updateUI = (change) => {
   const currencyNameMap = {
     PENNY: 'Pennies',
@@ -33,31 +40,22 @@ const updateUI = (change) => {
   if (change) {
     change.forEach((changeArr) => {
       const targetArr = cid.find((cidArr) => cidArr[0] === changeArr[0]);
-      if (targetArr) {
-        targetArr[1] = parseFloat((targetArr[1] - changeArr[1]).toFixed(2));
-      }
+      targetArr[1] = parseFloat((targetArr[1] - changeArr[1]).toFixed(2));
     });
   }
 
   cash.value = '';
-  priceScreen.textContent = `Total: $${price}`;
+  priceScreen.textContent = Total: $${price};
   cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>
     ${cid
-      .map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
+      .map((money) => <p>${currencyNameMap[money[0]]}: $${money[1]}</p>)
       .join('')}
   `;
 };
 
-const formatResults = (status, change) => {
-  displayChangeDue.innerHTML = `<p>Status: ${status}</p>`;
-  change.forEach((money) => {
-    displayChangeDue.innerHTML += `<p>${money[0]}: $${money[1]}</p>`;
-  });
-};
-
 const checkCashRegister = () => {
   if (Number(cash.value) < price) {
-    console.error('Customer does not have enough money to purchase the item');
+    console.log('Customer does not have enough money to purchase the item');
     cash.value = '';
     return;
   }
@@ -88,14 +86,14 @@ const checkCashRegister = () => {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i < reversedCid.length; i += 1) {
+  for (let i = 0; i < reversedCid.length; i++) {
     if (changeDue >= denominations[i] && changeDue > 0) {
       let count = 0;
       let total = reversedCid[i][1];
       while (total > 0 && changeDue >= denominations[i]) {
         total -= denominations[i];
         changeDue = parseFloat((changeDue - denominations[i]).toFixed(2));
-        count += 1;
+        count++;
       }
       if (count > 0) {
         result.change.push([reversedCid[i][0], count * denominations[i]]);
@@ -120,4 +118,4 @@ cash.addEventListener('keydown', (e) => {
   }
 });
 
-updateUI([]); // Initialize UI
+updateUI();
