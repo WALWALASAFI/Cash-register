@@ -17,6 +17,37 @@ const purchaseBtn = document.getElementById('purchase-btn');
 const priceScreen = document.getElementById('price-screen');
 const cashDrawerDisplay = document.getElementById('cash-drawer-display');
 
+const updateUI = (change) => {
+  const currencyNameMap = {
+    PENNY: 'Pennies',
+    NICKEL: 'Nickels',
+    DIME: 'Dimes',
+    QUARTER: 'Quarters',
+    ONE: 'Ones',
+    FIVE: 'Fives',
+    TEN: 'Tens',
+    TWENTY: 'Twenties',
+    'ONE HUNDRED': 'Hundreds',
+  };
+
+  if (change) {
+    change.forEach((changeArr) => {
+      const targetArr = cid.find((cidArr) => cidArr[0] === changeArr[0]);
+      if (targetArr) {
+        targetArr[1] = parseFloat((targetArr[1] - changeArr[1]).toFixed(2));
+      }
+    });
+  }
+
+  cash.value = '';
+  priceScreen.textContent = `Total: $${price}`;
+  cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>
+    ${cid
+      .map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
+      .join('')}
+  `;
+};
+
 const formatResults = (status, change) => {
   displayChangeDue.innerHTML = `<p>Status: ${status}</p>`;
   change.forEach((money) => {
@@ -26,7 +57,7 @@ const formatResults = (status, change) => {
 
 const checkCashRegister = () => {
   if (Number(cash.value) < price) {
-    alert('Customer does not have enough money to purchase the item');
+    console.error('Customer does not have enough money to purchase the item');
     cash.value = '';
     return;
   }
@@ -79,35 +110,6 @@ const checkCashRegister = () => {
 
   formatResults(result.status, result.change);
   updateUI(result.change);
-};
-
-const updateUI = (change) => {
-  const currencyNameMap = {
-    PENNY: 'Pennies',
-    NICKEL: 'Nickels',
-    DIME: 'Dimes',
-    QUARTER: 'Quarters',
-    ONE: 'Ones',
-    FIVE: 'Fives',
-    TEN: 'Tens',
-    TWENTY: 'Twenties',
-    'ONE HUNDRED': 'Hundreds',
-  };
-
-  if (change) {
-    change.forEach((changeArr) => {
-      const targetArr = cid.find((cidArr) => cidArr[0] === changeArr[0]);
-      targetArr[1] = parseFloat((targetArr[1] - changeArr[1]).toFixed(2));
-    });
-  }
-
-  cash.value = '';
-  priceScreen.textContent = `Total: $${price}`;
-  cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>
-    ${cid
-      .map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
-      .join('')}
-  `;
 };
 
 purchaseBtn.addEventListener('click', checkCashRegister);
