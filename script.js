@@ -55,7 +55,7 @@ const updateUI = (change) => {
 
 const checkCashRegister = () => {
   if (Number(cash.value) < price) {
-    alert('Customer does not have enough money to purchase the item');
+    alert('Customer does not have enough money to purchase the item. Please add more cash.');
     cash.value = '';
     return;
   }
@@ -69,7 +69,7 @@ const checkCashRegister = () => {
   let changeDue = Number(cash.value) - price;
   const reversedCid = [...cid].reverse();
   const denominations = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
-  let result = { status: 'OPEN', change: [] };
+  const result = { status: 'OPEN', change: [] };
   const totalCID = parseFloat(cid.map((total) => total[1]).reduce((prev, curr) => prev + curr).toFixed(2));
 
   if (totalCID < changeDue) {
@@ -81,7 +81,7 @@ const checkCashRegister = () => {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i <= reversedCid.length; i++) {
+  for (let i = 0; i < reversedCid.length; i++) {
     if (changeDue >= denominations[i] && changeDue > 0) {
       let count = 0;
       let total = reversedCid[i][1];
