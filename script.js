@@ -34,7 +34,7 @@ const updateUI = (change) => {
     FIVE: 'Fives',
     TEN: 'Tens',
     TWENTY: 'Twenties',
-    'ONE HUNDRED': 'Hundreds',
+    'ONE HUNDRED': 'Hundreds', // Added trailing comma here
   };
 
   if (change) {
@@ -48,8 +48,8 @@ const updateUI = (change) => {
   priceScreen.textContent = `Total: $${price}`;
   cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>
     ${cid
-    .map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
-    .join('')}
+      .map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
+      .join('')}
   `;
 };
 
@@ -72,30 +72,22 @@ const checkCashRegister = () => {
   const reversedCid = [...cid].reverse();
   const denominations = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
   const result = { status: 'OPEN', change: [] };
-  // Fixing line length error by breaking into smaller parts
-const totalCID = parseFloat(
-  cid.map((total) => total[1])
-     .reduce((prev, curr) => prev + curr)
-     .toFixed(2)
-);
 
-// Unused variable error is addressed by removing the assignment
-// const longString = 'This is a very long string that exceeds the maximum allowed length ' +
-//   'of a single line. Breaking it into smaller parts improves readability.';
+  const totalCID = parseFloat(
+    cid.map((total) => total[1])
+      .reduce((prev, curr) => prev + curr)
+      .toFixed(2)
+  );
 
-// Operator line break error is corrected by moving '+' to the beginning of the next line
-const longString = 'This is a very long string that exceeds the maximum allowed length ' 
-  + 'of a single line. Breaking it into smaller parts improves readability.';
-  
   if (totalCID < changeDue) {
     displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
     return;
   }
-  
+
   if (totalCID === changeDue) {
     result.status = 'CLOSED';
   }
-  
+
   for (let i = 0; i < reversedCid.length; i++) {
     if (changeDue >= denominations[i] && changeDue > 0) {
       let count = 0;
@@ -107,7 +99,7 @@ const longString = 'This is a very long string that exceeds the maximum allowed 
       }
     }
   }
-  
+
   if (changeDue > 0) {
     displayChangeDue.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
     return;
