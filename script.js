@@ -48,15 +48,14 @@ const updateUI = (change) => {
   priceScreen.textContent = `Total: $${price}`;
   cashDrawerDisplay.innerHTML = `<p><strong>Change in drawer:</strong></p>
     ${cid
-      .map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
-      .join('')}
+    .map((money) => `<p>${currencyNameMap[money[0]]}: $${money[1]}</p>`)
+    .join('')}
   `;
 };
 
 const checkCashRegister = () => {
   // Disable eslint for alert usage
   /* eslint-disable no-alert */
-  
   if (Number(cash.value) < price) {
     alert('Customer does not have enough money to purchase the item. Please add more cash.');
     cash.value = '';
@@ -69,15 +68,13 @@ const checkCashRegister = () => {
     return;
   }
 
-  // Re-enable eslint after alert usage
-  /* eslint-enable no-alert */
-
   let changeDue = Number(cash.value) - price;
   const reversedCid = [...cid].reverse();
   const denominations = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
   const result = { status: 'OPEN', change: [] };
   const totalCID = parseFloat(cid.map((total) => total[1]).reduce((prev, curr) => prev + curr).toFixed(2));
 
+  // Example of breaking a long line
   const longString = 'This is a very long string that exceeds the maximum allowed length ' +
     'of a single line. Breaking it into smaller parts improves readability.';
 
