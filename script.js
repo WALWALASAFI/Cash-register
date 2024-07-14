@@ -8,7 +8,7 @@ const cid = [
   ['FIVE', 55],
   ['TEN', 20],
   ['TWENTY', 60],
-  ['ONE HUNDRED', 100], 
+  ['ONE HUNDRED', 100],
 ];
 
 const displayChangeDue = document.getElementById('change-due');
