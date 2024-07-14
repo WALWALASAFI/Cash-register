@@ -8,7 +8,7 @@ const cid = [
   ['FIVE', 55],
   ['TEN', 20],
   ['TWENTY', 60],
-  ['ONE HUNDRED', 100], // Trailing comma added here to fix missing comma error
+  ['ONE HUNDRED', 100], // <-- Trailing comma added here
 ];
 
 const displayChangeDue = document.getElementById('change-due');
