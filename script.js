@@ -8,7 +8,7 @@ const cid = [
   ['FIVE', 55],
   ['TEN', 20],
   ['TWENTY', 60],
-  ['ONE HUNDRED', 100], // <-- Trailing comma added here
+  ['ONE HUNDRED', 100], 
 ];
 
 const displayChangeDue = document.getElementById('change-due');
@@ -73,7 +73,7 @@ const checkCashRegister = () => {
   const totalCID = parseFloat(
     cid.map((total) => total[1])
       .reduce((prev, curr) => prev + curr)
-      .toFixed(2)
+      .toFixed(2), // <-- Add a trailing comma here
   );
 
   if (totalCID < changeDue) {
