@@ -8,7 +8,7 @@ const cid = [
   ['FIVE', 55],
   ['TEN', 20],
   ['TWENTY', 60],
-  ['ONE HUNDRED', 100],
+  ['ONE HUNDRED', 100], // Trailing comma added here to fix missing comma error
 ];
 
 const displayChangeDue = document.getElementById('change-due');
@@ -85,7 +85,7 @@ const checkCashRegister = () => {
     result.status = 'CLOSED';
   }
 
-  for (let i = 0; i < reversedCid.length; i++) {
+  for (let i = 0; i < reversedCid.length; i += 1) { // Increment i using +=
     if (changeDue >= denominations[i] && changeDue > 0) {
       let total = reversedCid[i][1];
       while (total > 0 && changeDue >= denominations[i]) {
